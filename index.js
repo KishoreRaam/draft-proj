@@ -57,7 +57,10 @@ const make2025Commits = async () => {
 
       await writeJson(path, data);
       await git.add([path]);
-      await git.commit(`Contribution ${date}`, { "--date": date });
+      await git
+        .env("GIT_AUTHOR_DATE", date)
+        .env("GIT_COMMITTER_DATE", date)
+        .commit(`Contribution ${date}`, { "--date": date });
       total += 1;
     }
   }
